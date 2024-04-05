@@ -108,7 +108,7 @@ public void dodge() {
 	Fighters enemy = new Fighters("enemy", 1, "agile" , 90.0);
 
 	kundan.attack(enemy, "punch", 10);
-	kundan.attack(enemy, "kick", 15);
+	enemy.attack(kundan, "kick", 15);
 
 	// int xpGained = 50;
     // kundan.gainXP(xpGained);

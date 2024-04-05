@@ -39,6 +39,7 @@ public class MysteryBox {
 
 
     public static void main(String[] args) {
+
         ArrayList<MysteryBox> boxes = new ArrayList<>();
         boxes.add(new MysteryBox(50)); // Common box
         boxes.add(new MysteryBox(100, 1)); // Rare box
@@ -63,4 +64,8 @@ public class MysteryBox {
         System.out.println("Damage Bonus: " + selectedBox.damageBonus);
         //if we have time, come back and make this harder: user has to guess number, and it has to match random
     }
-}
+
+
+    
+        
+    }

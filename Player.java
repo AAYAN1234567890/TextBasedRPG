@@ -8,11 +8,13 @@ public class Player {
 	private String name;
 	private int level;
 	private int XP;
+	private int extraLives;	
 	
-	Player(String name, int level, int XP) {
+	Player(String name, int level, int XP, int extraLives) {
 	this.setName(name);
 	this.setLevel(level);
 	this.setXP(XP);
+	this.setextraLives(extraLives);
 	}
 	
 	Player(String name) {
@@ -30,9 +32,39 @@ public class Player {
 		this.XP= newXP;
 		}
 	
-	public String toString() {
+	public void setextraLives(int newLives) { 
+		this.extraLives= newLives;
+		}
+	public String getName() {
 	return name;
 	}
+	
+	public int getLevel() {
+		return level;
+		}
+	
+	public int getXP() {
+		return XP;
+		}
+	public int getExtraLives() {
+	return extraLives;
+	}
+	public void addLevel() {
+	int levelUp_Requirement = 1000;
+	int requiredXP = levelUp_Requirement - XP;
+	if (XP == levelUp_Requirement) {
+	level++;
+	} else {
+	System.out.println("You have " + XP + ". You need " +  requiredXP + "XP to level up." );
+	}
+	}
+	
+	public void addXP(int xpAmount) {
+	XP+= xpAmount;
+	System.out.println("You now have " + XP);
+	}
+	//for the two methods above, make sure that mystery box values work properly with them
+	
 	
 	public void pickFighter() {
 	ArrayList<Fighters> fighterList = new ArrayList<>();
@@ -40,12 +72,12 @@ public class Player {
 	fighterList.add(new Fighters("KG" , 1, "agile", 100.0));
 	System.out.println("Name  Lvl   Type  Health");
 	for (Fighters f: fighterList) {
-	System.out.println(f.toString() + "   " +  f.getLevel() + "   " + f.getType() + "   " + f.getHealth());
+	System.out.println(f.getName() + "   " +  f.getLevel() + "   " + f.getType() + "   " + f.getHealth());
 	}
-	System.out.println("Pick a character using the index");
+	System.out.println("Pick a character using the numeric value: MK(0) or KG (1)");
 	int choice = scanner.nextInt();
 	Fighters selectedFighter = fighterList.get(choice);
-	System.out.println("You have chosen " + selectedFighter); //print out everything related to fighters (level, type, etc)
+	System.out.println("You have chosen " + selectedFighter.getName()); //print out everything related to fighters (level, type, etc)
 	System.out.println("Level: " + selectedFighter.getLevel());
 	System.out.println("Type: " + selectedFighter.getType());
 	System.out.println("Health: " + selectedFighter.getHealth());
@@ -58,6 +90,11 @@ public class Player {
 		} */
 	
 	}
+	
+	public void playerStats() {
+	
+	}
+	
 	
 	
 	
@@ -73,6 +110,7 @@ public class Player {
 		player.setLevel(1);
 		player.setXP(0);
 		player.pickFighter();
+		
 		
 		
 
