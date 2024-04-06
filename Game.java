@@ -45,10 +45,28 @@ System.out.println("Enter open.");
 String openBox = scanner.nextLine();
 if (openBox.equalsIgnoreCase("open")) {
 System.out.println("You have opened box!");
-MysteryBox.main(null);
-System.out.println(player.getXP());
-// make sure the xp and levelling (& extraLives or anything in the mystery box) system gets updated from the mysterbox into the user
 
+MysteryBox mysteryBox = new MysteryBox();
+mysteryBox.openBox();
+int xpBonus = mysteryBox.getXpBonus();
+int extraLives = mysteryBox.getExtraLives();
+int damageBonus = mysteryBox.getDamageBonus();
+player.addXP(xpBonus);
+player.addExtraLives(extraLives);
+player.addDamageBonus(damageBonus);
+System.out.println("Updated Stats:");
+System.out.println("XP: " + player.getXP());
+System.out.println("Level: " + player.getLevel());
+System.out.println("Extra Lives: " + player.getExtraLives());
+System.out.println("Damage Bonus: " + player.getDamageBonus());
+
+// // int extraLives = mysteryBox.getExtraLives();
+// // int damageBonus = mysteryBox.getDamageBonus();
+// System.out.println(player.getXP());
+// // make sure the xp and levelling (& extraLives or anything in the mystery box) system gets updated from the mysterbox into the user
+// System.out.println(player.getLevel());
+// System.out.println(player.getExtraLives());
+// System.out.println(player.getDamageBonus());
 }
 else {
 System.out.println("Go ahead, open the box!");
@@ -87,3 +105,4 @@ System.out.println("Left or right?");
 }
 
 }
+

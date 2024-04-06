@@ -3,12 +3,16 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class Player {
+
 	private static Scanner scanner = new Scanner(System.in);
 	
 	private String name;
 	private int level;
 	private int XP;
-	private int extraLives;	
+	private int extraLives;
+	private int damageBonus;
+
+	public char[] getDamageBonus;	
 	
 	Player(String name, int level, int XP, int extraLives) {
 	this.setName(name);
@@ -46,24 +50,39 @@ public class Player {
 	public int getXP() {
 		return XP;
 		}
-	public int getExtraLives() {
-	return extraLives;
-	}
-	public void addLevel() {
-	int levelUp_Requirement = 1000;
-	int requiredXP = levelUp_Requirement - XP;
-	if (XP == levelUp_Requirement) {
-	level++;
-	} else {
-	System.out.println("You have " + XP + ". You need " +  requiredXP + "XP to level up." );
-	}
+
+		public int getExtraLives() {
+			return extraLives;
+		}
+	
+		public int getDamageBonus() {
+			return damageBonus;
+		}
+	
+		public void addExtraLives(int extraLives) {
+			this.extraLives += extraLives;
+		}
+	
+		public void addDamageBonus(int damageBonus) {
+			this.damageBonus += damageBonus;
+		}
+
+	public void addLevel(int xpBonus) {
+		int levelUp_Requirement = 1000;
+		int requiredXP = levelUp_Requirement - (XP + xpBonus);
+		if (XP + xpBonus >= levelUp_Requirement) {
+			level++;
+			System.out.println("Congratulations! You leveled up to level " + level + "!");
+		} else {
+			System.out.println("You have " + (XP + xpBonus) + " XP. You need " + requiredXP + " XP to level up.");
+		}
 	}
 	
 	public void addXP(int xpAmount) {
-	XP+= xpAmount;
-	System.out.println("You now have " + XP);
+		XP += xpAmount;
+		System.out.println("You gained " + xpAmount + " XP. You now have " + XP + " XP in total.");
 	}
-	//for the two methods above, make sure that mystery box values work properly with them
+	
 	
 	
 	public void pickFighter() {
