@@ -5,6 +5,7 @@ private static Player player;
 //private static Fighters optionOne = new Fighters("MK" , 1 , "agile" , 100.0); //replace this with actual player chosen fighter
 private static Fighters selectedFighter;
 private static Fighters enemyOne = new Fighters("Dhvanay" , 50 , "megaweight" , 70.0 );
+private static Fighters enemyTwo = new Fighters("Harsha" , 3 , "mediumweight" , 100.0 );
 public static void main(String[] args) {
 Game game = new Game();
 game.menu();
@@ -103,6 +104,7 @@ stageTwo();
 }
 private static void fightOne() {
 System.out.println("Let's begin!");
+enemyOne.setHealth(75.0);
 wait(1);
 clear();
 enemyOneStats();
@@ -142,9 +144,10 @@ stageTwo();
 
 private static void fightTwo(boolean extraDamage) {
     System.out.println("Let's begin!");
+    enemyTwo.setHealth(100.0);
     wait(1);
     clear();
-    enemyOneStats();
+    enemyTwoStats();
     wait(3);
     clear();
     do {
@@ -153,20 +156,20 @@ private static void fightTwo(boolean extraDamage) {
         if (attackChoice == 1) {
             clear();
             if (extraDamage)
-                selectedFighter.attack(enemyOne, selectedFighter, "punch", 15.0 + selectedFighter.getDamageBonus());
+                selectedFighter.attack(enemyTwo, selectedFighter, "punch", 15.0 + selectedFighter.getDamageBonus());
             else
-                selectedFighter.attack(enemyOne, selectedFighter, "punch", 15.0);
-            enemyOne.attack(selectedFighter, enemyOne, "uppercut", 50.0);
+                selectedFighter.attack(enemyTwo, selectedFighter, "punch", 15.0);
+            enemyTwo.attack(selectedFighter, enemyTwo, "uppercut", 50.0);
             wait(3);
             clear();
         }
         if (attackChoice == 2) {
             clear();
             if (extraDamage)
-                selectedFighter.attack(enemyOne, selectedFighter, "kick", 20.0 + selectedFighter.getDamageBonus());
+                selectedFighter.attack(enemyTwo, selectedFighter, "kick", 20.0 + selectedFighter.getDamageBonus());
             else
-                selectedFighter.attack(enemyOne, selectedFighter, "kick", 20.0);
-            enemyOne.attack(selectedFighter, enemyOne, "uppercut", 50.0);
+                selectedFighter.attack(enemyTwo, selectedFighter, "kick", 20.0);
+            enemyTwo.attack(selectedFighter, enemyTwo, "uppercut", 50.0);
             wait(3);
             clear();
         }
@@ -179,7 +182,7 @@ private static void fightTwo(boolean extraDamage) {
                 } else {
                     System.out.println("You failed to dodge the attack!");
                     // selectedFighter.dodge(selectedFighter, enemyOne, enemyOne.getHealth());
-					enemyOne.attack(selectedFighter, enemyOne, "uppercut" , 50.0);
+					enemyTwo.attack(selectedFighter, enemyTwo, "uppercut" , 50.0);
                     checkPlayerChances();
                 }
             } else {
@@ -187,14 +190,15 @@ private static void fightTwo(boolean extraDamage) {
                 System.out.println("You dodged the attack!");
             }
         }
-    } while (enemyOne.getHealth() > 0 && selectedFighter.getHealth() > 0);
+    } while (enemyTwo.getHealth() > 0 && selectedFighter.getHealth() > 0);
     if (selectedFighter.getHealth() == 0) {
-        
-		gameOverMessage();
+        checkPlayerChances();
     } else {
         System.out.println("You won the fight!");
         
-    }
+        
+    
+}
 }
 
 private static boolean isDodgeSuccessful() {
@@ -220,11 +224,10 @@ System.out.println("Game over.");
 }
 else {
 System.out.println("You have another chance!");
+wait(3);
+selectedFighter.setHealth(100.0);
+player.setExtraLives(player.getExtraLives() - 1);
 }
-}
-else if (enemyOne.getHealth() == 0) {
-System.out.println("You win!");
-player.addXP(750);
 }
 }
 private static void enemyOneStats() {
@@ -232,6 +235,12 @@ System.out.println("Enemy name: " + enemyOne.getName());
 System.out.println("Level: " + enemyOne.getLevel());
 System.out.println("Type: " + enemyOne.getType());
 System.out.println("Health: " + enemyOne.getHealth());
+}
+private static void enemyTwoStats() {
+System.out.println("Enemy name: " + enemyTwo.getName());
+System.out.println("Level: " + enemyTwo.getLevel());
+System.out.println("Type: " + enemyTwo.getType());
+System.out.println("Health: " + enemyTwo.getHealth());
 }
 private static void playerStats() {
 System.out.println("Player Name: " + player.getName());

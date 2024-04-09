@@ -23,15 +23,16 @@ this.name = name;
 this.level = level;
 this.type = type;
 this.health = health;
-//this.setHealth(health);
+this.setHealth(health);
 
 
 
 
 }
-
-
-
+public void setHealth(double newHealth) {
+    this.health = newHealth;
+    }
+   
 
 public String getName() {
 return this.name;

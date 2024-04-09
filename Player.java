@@ -24,7 +24,7 @@ public class Player {
     this.setName(name);
     this.setLevel(level);
     this.setXP(XP);
-    this.setextraLives(extraLives);
+    this.setExtraLives(extraLives);
     }
    
     public void setName(String newName) {
@@ -38,7 +38,7 @@ public class Player {
         this.XP= newXP;
         }
    
-    public void setextraLives(int newLives) {
+    public void setExtraLives(int newLives) {
         this.extraLives = newLives;
         }
     public String getName() {
