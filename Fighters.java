@@ -3,8 +3,6 @@ import java.util.Collections;
 import java.util.Random;
 
 
-
-
 public class Fighters {
 private static final int XP = 0;
 private String name;
@@ -15,30 +13,24 @@ private int damageBonus;
 
 
 
-
-
-
 public Fighters(String name, int level, String type, double health) {
 this.name = name;
 this.level = level;
 this.type = type;
-this.health = health;
 this.setHealth(health);
 
 
-
-
 }
+
+
 public void setHealth(double newHealth) {
     this.health = newHealth;
     }
-   
+
 
 public String getName() {
 return this.name;
 }
-
-
 
 
 public int getLevel() {
@@ -46,26 +38,19 @@ return this.level;
 }
 
 
-
-
 public String getType() {
 return this.type;
 }
-
 
 public int getDamageBonus() {
     return damageBonus;
 }
 
 
-
-
 public void dealtDamage(double damageAmount) {
 health -= damageAmount; //Used ChatGPT to clarify how to subtract health (I thought we had to use setter, but ran into an error as object was inaccessible)
 //System.out.println("Opponent now has " + health);
 }
-
-
 
 
 public double getHealth () {
@@ -75,17 +60,12 @@ return this.health;
 
 
 
-
-
-
-
 public void attack(Fighters opponent, Fighters attackerName , String attackName, double damage) {
-	System.out.println(opponent.getName() + " 's current health is " + opponent.getHealth() + "." + attackerName.getName() + " did " + attackName + ". It did " + damage + ".");
+System.out.println(opponent.getName() + " 's current health is " + opponent.getHealth() + "." + attackerName.getName() + " did " + attackName + ". It did " + damage + ".");
     opponent.dealtDamage(damage);
     System.out.println(opponent.getName() + " has " + opponent.getHealth());
    }
    
-
 
 public void dodge(Fighters attackerName, Fighters opponent, double damage) { //fix dodge methpd
     boolean dodge;
@@ -106,8 +86,6 @@ public void dodge(Fighters attackerName, Fighters opponent, double damage) { //f
     attackerName.dealtDamage(attackerName.getHealth());
     }
     }
-
-
 
 
     public void gainXP(int xp) {
@@ -135,12 +113,9 @@ public void dodge(Fighters attackerName, Fighters opponent, double damage) { //f
     }
    
 
-
     public void addDamageBonus(int damageBonus) {
         this.damageBonus += damageBonus;
     }
-
-
 
 
     public static void main(String[] args) {
@@ -156,18 +131,12 @@ public void dodge(Fighters attackerName, Fighters opponent, double damage) { //f
     Fighters enemy = new Fighters("enemy", 1, "agile" , 90.0);
 
 
-
-
     //kundan.attack(enemy, "punch", 10);
    // enemy.attack(kundan, "kick", 15);
 
 
-
-
     // int xpGained = 50;
     // kundan.gainXP(xpGained);
-
-
 
 
     System.out.println("Kundan's health: " + kundan.getHealth());
@@ -175,10 +144,4 @@ public void dodge(Fighters attackerName, Fighters opponent, double damage) { //f
     }
 
 
-
-
 }
-
-
-
-
