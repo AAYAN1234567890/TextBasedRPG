@@ -50,48 +50,53 @@ if (choice.equalsIgnoreCase("left")) {
 goLeft();
 System.out.println("Woah! You see a mystery box!");
 System.out.println("Enter open.");
-String openBox = scanner.nextLine();
-if (openBox.equalsIgnoreCase("open")) {
-clear();
-openMysteryBox();
-System.out.println("You have made it to the next level!");
-wait(2);
-clear();
-stageTwo();
-}
-else {
-System.out.println("Go ahead, open the box!");
-
+while (true) {
+    try {
+        String openBox = scanner.nextLine().trim().toLowerCase();
+        if (openBox.equals("open")) {
+            clear();
+            openMysteryBox();
+            System.out.println("You have made it to the next level!");
+            wait(2);
+            clear();
+            stageTwo();
+        } else {
+            System.out.println("Invalid input. Please type 'open' to open the box.");
+        }
+    } catch (Exception e) {
+        System.out.println("Invalid input. Please type 'open' to open the box.");
+    }
 }
 
 } else {
-goRight();
-System.out.println("You have encountered an enemy! Fight or flight?");
-String engage = scanner.nextLine();
-if (engage.equalsIgnoreCase("fight")) {
-clear();
-fightOne();
-
-
-
+    goRight();
+    System.out.println("You have encountered an enemy! Fight or flight?");
+    while (true) {
+        try {
+            String engage = scanner.nextLine().trim().toLowerCase();
+            if (engage.equals("fight")) {
+                clear();
+                fightOne();
+                break;
+            } else if (engage.equals("flight")) {
+                clear();
+                System.out.println("You have chosen to flee.");
+                player.removeLives(1);
+                if (player.getLives() == 0) {
+                    System.out.println("However, that has a cost.");
+                    System.out.println("As a violation of the fighter code, you are no longer allowed to fight.");
+                    System.out.println("Game over.");
+                }
+                break;
+            } else {
+                System.out.println("Invalid input. Please type 'fight' to engage in combat or 'flight' to flee.");
+            }
+        } catch (Exception e) {
+            System.out.println("Invalid input. Please type 'fight' to engage in combat or 'flight' to flee.");
+        }
+    }
 }
-else if (engage.equalsIgnoreCase("flight")) {
-clear();
-System.out.println("You have chosen to flee.");
-player.removeLives(1);
-
-if(player.getLives() == 0) {
-System.out.println("However, that has a cost.");
-System.out.println("As a violation of the fighter code, you are no longer allowed to fight.");
-System.out.println("Game over.");
 }
-}
-
-
-}
-
-}
-
 private static void stageTwo() {
 playerStats();
 wait(3);
@@ -127,18 +132,22 @@ if(choice.equalsIgnoreCase("left")) {
 goLeft();
 System.out.println("Woah! You see a mystery box!");
 System.out.println("Enter open.");
-String openBox = scanner.nextLine();
-if (openBox.equalsIgnoreCase("open")) {
-clear();
-openMysteryBox();
-System.out.println("You have made it to the last fight!");
-wait(2);
-clear();
-fightThree(true);
-}
-else {
-System.out.println("Go ahead, open the box!");
-
+while (true) {
+    try {
+        String openBox = scanner.nextLine().trim().toLowerCase();
+        if (openBox.equals("open")) {
+            clear();
+            openMysteryBox();
+            System.out.println("You have made it to the next level!");
+            wait(2);
+            clear();
+            stageTwo();
+        } else {
+            System.out.println("Invalid input. Please type 'open' to open the box.");
+        }
+    } catch (Exception e) {
+        System.out.println("Invalid input. Please type 'open' to open the box.");
+    }
 }
 }
 
@@ -253,8 +262,7 @@ if (selectedFighter.getHealth() <= 0) {
         player.addXP(150);
         selectedFighter.gainXP(150);
         playerStats();
-
-
+        wait(5);
      
 }
    }
@@ -522,7 +530,7 @@ System.out.println("XP: " + player.getXP());
 }
 
 private static void pickDirection() {
-System.out.println("Left or right?");
+    System.out.println("Left or right?");
 }
 
 private static void goLeft() {
