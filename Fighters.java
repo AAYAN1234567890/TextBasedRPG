@@ -4,7 +4,7 @@ import java.util.Random;
 
 
 public class Fighters {
-private static final int XP = 0;
+private static int XP = 0;
 private String name;
 private int level;
 private String type;
@@ -61,11 +61,15 @@ return this.health;
 
 
 public void attack(Fighters opponent, Fighters attackerName , String attackName, double damage) {
-System.out.println(opponent.getName() + " 's current health is " + opponent.getHealth() + "." + attackerName.getName() + " did " + attackName + ". It did " + damage + ".");
+	System.out.println(opponent.getName() + " 's current health is " + opponent.getHealth() + ". " + attackerName.getName() + " did " + attackName + ". It did " + damage + " damage.");
     opponent.dealtDamage(damage);
-    System.out.println(opponent.getName() + " has " + opponent.getHealth());
+    if (opponent.getHealth() < 0) {
+    	System.out.println(opponent.getName() + " has 0 HP.");	
+    }
+    else {
+    System.out.println(opponent.getName() + " has " + opponent.getHealth() + "HP.");
    }
-   
+}
 
 public void dodge(Fighters attackerName, Fighters opponent, double damage) { //fix dodge methpd
     boolean dodge;
@@ -88,30 +92,55 @@ public void dodge(Fighters attackerName, Fighters opponent, double damage) { //f
     }
 
 
-    public void gainXP(int xp) {
-        System.out.println(name + " gained " + xp + " XP.");
-         int XP = xp;
-        // Check if level up
-        checkLevelUp();
-    }
+    // public void gainXP(int xp) {
+    //     System.out.println(name + " gained " + xp + " XP.");
+    //      int XP = xp;
+    //     // Check if level up
+    //     checkLevelUp();
+    // }
    
+    // private void checkLevelUp() {
+    //     int xpToNextLevel = calculateXPToNextLevel();
+    //     if (XP >= xpToNextLevel) {
+    //         levelUp();
+    //     }
+    // }
+   
+    // private void levelUp() {
+    //     level++;
+    //     System.out.println(name + " leveled up to level " + level + "!");
+    // }
+   
+    // private int calculateXPToNextLevel() { //Chatgpt
+    //     // Calculate XP required to reach the next level based on     formula
+    //     return (level * 50) + 50; //the player needs 100 XP to reach level 2.
+    // }
+   
+    public void gainXP(int xpAmount) {
+        XP += xpAmount;
+        System.out.println(name + " gained " + xpAmount + " XP." + name + " now has " + XP + " XP in total.");
+       //ask aayan about paramater, remove if not needed
+       checkLevelUp();
+    }
+
     private void checkLevelUp() {
         int xpToNextLevel = calculateXPToNextLevel();
         if (XP >= xpToNextLevel) {
             levelUp();
         }
     }
-   
+
     private void levelUp() {
         level++;
         System.out.println(name + " leveled up to level " + level + "!");
+        // Reset XP to 0 after leveling up
+        XP = 0;
     }
-   
+
     private int calculateXPToNextLevel() { //Chatgpt
         // Calculate XP required to reach the next level based on     formula
         return (level * 50) + 50; //the player needs 100 XP to reach level 2.
     }
-   
 
     public void addDamageBonus(int damageBonus) {
         this.damageBonus += damageBonus;
