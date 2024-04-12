@@ -150,6 +150,13 @@ System.out.println("Damage Bonus: " + selectedBox.damageBonus);
 
 }
 
+
+
+/* Debugging: Ensure that the 'boxes' ArrayList is properly initialized and contains 
+the expected Mystery Box instances.
+*/
+
+
 // OUTPUT
 
 /**

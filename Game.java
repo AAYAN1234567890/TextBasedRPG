@@ -157,7 +157,6 @@ private static void stageThree() {
     step();
     clear();
     pickDirection();
-   // scanner.nextLine();
 
     String choice = getUserInputUntilValid("left", "right");
 
