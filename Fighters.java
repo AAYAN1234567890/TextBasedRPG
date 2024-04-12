@@ -1,176 +1,279 @@
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Random;
 
-
 public class Fighters {
-private static int XP = 0;
+
+private int XP = 0;
+
 private String name;
+
 private int level;
+
 private String type;
+
 private double health;
+
 private int damageBonus;
 
-
+// CONSTRUCTOR
 
 public Fighters(String name, int level, String type, double health) {
+
 this.name = name;
+
 this.level = level;
+
 this.type = type;
+
 this.setHealth(health);
 
-
 }
 
+// PROCESSING 
 
-public void setHealth(double newHealth) {
-    this.health = newHealth;
-    }
+/*
 
+* Method allows for player health to be subtracted, used in conjunction with attack and dodge (this method is called upon) 
 
-public String getName() {
-return this.name;
-}
+@return damageAmount = double
 
-
-public int getLevel() {
-return this.level;
-}
-
-
-public String getType() {
-return this.type;
-}
-
-public int getDamageBonus() {
-    return damageBonus;
-}
-
+*/
 
 public void dealtDamage(double damageAmount) {
-health -= damageAmount; //Used ChatGPT to clarify how to subtract health (I thought we had to use setter, but ran into an error as object was inaccessible)
+
+health -= damageAmount; //Used ChatGPT to clarify how to subtract health (I thought we had to use setter, but ran into an error)
+
 //System.out.println("Opponent now has " + health);
+
 }
 
+/*
 
-public double getHealth () {
-return this.health;
-}
+* runs the player attack, which prints current health, runs attack based on user input, and then calls dealtDamage()
 
+to subtract player health
 
+@param opponent: Fighters, attackerName: opponent, attackName : String, damage: double
 
+*/
 
 public void attack(Fighters opponent, Fighters attackerName , String attackName, double damage) {
-	System.out.println(opponent.getName() + " 's current health is " + opponent.getHealth() + ". " + attackerName.getName() + " did " + attackName + ". It did " + damage + " damage.");
-    opponent.dealtDamage(damage);
-    if (opponent.getHealth() < 0) {
-    	System.out.println(opponent.getName() + " has 0 HP.");	
-    }
-    else {
-    System.out.println(opponent.getName() + " has " + opponent.getHealth() + "HP.");
-   }
+
+System.out.println(opponent.getName() + "'s current health is " + opponent.getHealth() + ". " + attackerName.getName() + " did " + attackName + ". It did " + damage + " damage.");
+
+opponent.dealtDamage(damage);
+
+if (opponent.getHealth() < 0) { //before this, printed out negative health in fight
+
+System.out.println(opponent.getName() + " has 0.0 HP.");
+
 }
 
-public void dodge(Fighters attackerName, Fighters opponent, double damage) { //fix dodge methpd
-    boolean dodge;
-    Random random = new Random();
-    int ifDodge = random.nextInt(5) + 1; // 1 to 6
-    if(ifDodge < 3) {
-    dodge = true;
-    System.out.println("You have dodged the attack! The enemy wasn't expecting it, so you were able to land an attack!");
-    System.out.println("The enemy lost all their health!");
-   //set enemy health to 0
-    opponent.dealtDamage(damage);
-    }
-    else {
-    dodge = false;
-    System.out.println("The dodge failed - the enemy got their attack!");
-    System.out.println("You weren't expecting the attack! You lost all your health!");
-    //set player's fighter health to 0
-    attackerName.dealtDamage(attackerName.getHealth());
-    }
-    }
+else {
+
+System.out.println(opponent.getName() + " has " + opponent.getHealth() + "HP.");
+
+}
+
+}
+
+/*
+
+* runs the player dodge - dodge occurs by chance using a random, and boolean dodge works with random to print out outcome
+
+(dodge or no dodge) - based on outcome, dealtDamage is called upon to remove all of opposing player's health
 
 
-    // public void gainXP(int xp) {
-    //     System.out.println(name + " gained " + xp + " XP.");
-    //      int XP = xp;
-    //     // Check if level up
-    //     checkLevelUp();
-    // }
-   
-    // private void checkLevelUp() {
-    //     int xpToNextLevel = calculateXPToNextLevel();
-    //     if (XP >= xpToNextLevel) {
-    //         levelUp();
-    //     }
-    // }
-   
-    // private void levelUp() {
-    //     level++;
-    //     System.out.println(name + " leveled up to level " + level + "!");
-    // }
-   
-    // private int calculateXPToNextLevel() { //Chatgpt
-    //     // Calculate XP required to reach the next level based on     formula
-    //     return (level * 50) + 50; //the player needs 100 XP to reach level 2.
-    // }
-   
-    public void gainXP(int xpAmount) {
-        XP += xpAmount;
-        System.out.println(name + " gained " + xpAmount + " XP." + name + " now has " + XP + " XP in total.");
-       //ask aayan about paramater, remove if not needed
-       checkLevelUp();
-    }
+@param opponent: Fighters, attackerName: opponent, attackName : String, damage: double
 
-    private void checkLevelUp() {
-        int xpToNextLevel = calculateXPToNextLevel();
-        if (XP >= xpToNextLevel) {
-            levelUp();
-        }
-    }
+*/
 
-    private void levelUp() {
-        level++;
-        System.out.println(name + " leveled up to level " + level + "!");
-        // Reset XP to 0 after leveling up
-        XP = 0;
-    }
+public void dodge(Fighters attackerName, Fighters opponent, double damage) {
 
-    private int calculateXPToNextLevel() { //Chatgpt
-        // Calculate XP required to reach the next level based on     formula
-        return (level * 50) + 50; //the player needs 100 XP to reach level 2.
-    }
+boolean dodge;
 
-    public void addDamageBonus(int damageBonus) {
-        this.damageBonus += damageBonus;
-    }
+Random random = new Random();
+
+int ifDodge = random.nextInt(5) + 1; // 1 to 6
+
+if(ifDodge < 3) {
+
+dodge = true;
+
+System.out.println("You have dodged the attack! The enemy wasn't expecting it, so you were able to land an attack!");
+
+System.out.println("The enemy lost all their health!");
+
+opponent.dealtDamage(damage);
+
+}
+
+else {
+
+dodge = false;
+
+System.out.println("The dodge failed - the enemy got their attack!");
+
+System.out.println("You weren't expecting the attack! You lost all your health!");
+
+attackerName.dealtDamage(attackerName.getHealth()); //removes rest of player health
+
+}
+
+}
+
+/* Method adds XP based on mystery boxes being accessed or winning fights, and then checkLevelUp() runs to see if 
+
+player gained a level
+
+@param xpAmount: int
+
+*/
+
+public void addXP(int xpAmount) {
+
+XP += xpAmount;
+
+System.out.println(name + " gained " + xpAmount + " XP. " + name + " now has " + XP + " XP in total.");
+
+checkLevelUp();
+
+}
+
+/*how much XP is needed to move on to next level, increases with higher levels
+
+* @return calculateXPToNextLevel: int - used in checkLevelUp() in calculation to see if XP requirement was met
+
+*/
+
+private int calculateXPToNextLevel() {
+
+// Calculate XP required to reach the next level based on formula
+
+return (level * 100); // Assuming 100 XP required for each level
+
+}
+
+/* Method called upon by addXP to see if level up occurs, based on calculation to see how much XP is required to level up,
+
+and if fighter has that much xp accumulated, levelup() called if XP requirements are met
+
+*/
+
+private void checkLevelUp() {
+
+int xpToNextLevel = calculateXPToNextLevel();
+
+if (XP >= xpToNextLevel) {
+
+levelUp();
+
+}
+
+}
+
+//add level and cpnveys to user
+
+private void levelUp() {
+
+level++;
+
+System.out.println(name + " leveled up to level " + level + "!");
+
+// Reset XP to 0 after leveling up
+
+XP = 0;
+
+}
 
 
-    public static void main(String[] args) {
-    /*Fighters aayan = new Fighters("name" ,1, "large" , 100.0 );
-    Fighters kundan = new Fighters("name" , 1, "agile", 100.0);
-    ArrayList<Fighters> fighterList = new ArrayList<>();
-    Collections.addAll(fighterList, kundan, aayan);
-    for(Fighters f: fighterList) {
-        System.out.println(f.name);
-    */
-       
-    Fighters kundan = new Fighters("name" , 1 , "agile" , 100.0);
-    Fighters enemy = new Fighters("enemy", 1, "agile" , 90.0);
+/* adding damage if mysteryBox is accessed and box holds an extra damage perk
+
+* @param damageBonus: int
+
+*/
+
+public void addDamageBonus(int damageBonus) {
+
+this.damageBonus += damageBonus;
+
+}
 
 
-    //kundan.attack(enemy, "punch", 10);
-   // enemy.attack(kundan, "kick", 15);
+// GETTERS
+
+/*method accesses and prints fighter name
+
+* @return name: String
+
+*/
+
+public String getName() {
+
+return this.name;
+
+}
+
+/*method accesses and prints fighter level
+
+* @return level: int
+
+*/
+
+public int getLevel() {
+
+return this.level;
+
+}
+
+/*method accesses and prints fighter type
+
+* @return type String
+
+*/
+
+public String getType() {
+
+return this.type;
+
+}
+
+/*method accesses and prints fighter damage bonus
+
+* @return damageBonus: int
+
+*/
+
+public int getDamageBonus() {
+
+return damageBonus;
+
+}
+
+/*method accesses and prints fighter health
+
+* @return health: double
+
+*/
+
+public double getHealth () {
+
+return this.health;
+
+}
+
+//SETTERS
+
+// method modifies player health - used primarily when resetting health of fighters when a fight resets (back to full health)
+
+public void setHealth(double newHealth) {
+
+this.health = newHealth;
+
+}
+
+public static void main(String[] args) {
 
 
-    // int xpGained = 50;
-    // kundan.gainXP(xpGained);
-
-
-    System.out.println("Kundan's health: " + kundan.getHealth());
-    System.out.println("Enemy's health: " + enemy.getHealth());
-    }
-
+}
 
 }
